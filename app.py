@@ -5,7 +5,6 @@ data = '''Airline Code;DelayTimes;FlightCodes;To_From\nAir Canada (!);[21,40];20
 
 
 st.title("Flight Data Table")
-st.write("Flight Data")
 
 df = process_flight_data(data)
 st.dataframe(df)

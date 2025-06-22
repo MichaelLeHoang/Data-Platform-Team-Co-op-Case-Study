@@ -3,24 +3,28 @@ import pandas as pd
 from ast import literal_eval
 
 
-def process_flight_data(data):
+def process_flight_data(data: str) -> pd.DataFrame:
     """
-    
-    """ 
+    Parse, clean and normalize a semicolon-delimited flight data string into a pandas DataFrame
 
-    # data_preclean = re.sub(
-    # r'\[(.*?)\]',
-    # lambda m: '[' + m.group(1).replace('\n', '').strip() + ']',
-    # data,
-    # flags=re.DOTALL
-    # )
+    Args:
+        data (str): Raw multi-line string of form
+                    "Airline Code;DelayTimes;FlightCodes;To_From…", 
+                    where DelayTimes is a list literal and FlightCodes may be blank
+
+    Returns:
+        pandas.DataFrame: Cleaned table with correct types and no missing flight codes
+
+    """ 
 
     lines = data.strip().split('\n')
     headers = lines[0].split(';')
     rows = [line.split(';') for line in lines[1:]]
 
     # clean Airline Code
-    airline_clean = lambda s: re.sub(r'[^\w\s]', '', s).strip()
+    airline_clean = lambda s: ' '.join(w for w in re.sub(r'[^\w\s]', '', s).split() 
+                                       if not w.isdigit()
+                                       ).strip().title()
 
     # make DalayTimes from string list to actual list
     parse_delays  = lambda s: literal_eval(s) if s.strip() else []
@@ -63,8 +67,8 @@ def process_flight_data(data):
     
     return pd.DataFrame(cleaned)
 
-# data = '''Airline Code;DelayTimes;FlightCodes;To_From\nAir Canada (!);[21,40];20015.0;WAterLoo_NEWYork\n<Air France> (12);[];;Montreal_TORONTO\n(Porter Airways. );[60, 22,87];20035.0;CALgary_Ottawa\n12. Air France;[78, 66];;Ottawa_VANcouvER\n""".\\.Lufthansa.\\.""";[12,33];20055.0;london_MONTreal\n'''
+data = '''Airline Code;DelayTimes;FlightCodes;To_From\nAir Canada (!);[21,40];20015.0;WAterLoo_NEWYork\n<Air France> (12);[];;Montreal_TORONTO\n(Porter Airways. );[60, 22,87];20035.0;CALgary_Ottawa\n12. Air France;[78, 66];;Ottawa_VANcouvER\n""".\\.Lufthansa.\\.""";[12,33];20055.0;london_MONTreal\n'''
 
-# if __name__ == "__main__":
-#     df = process_flight_data(data)
-#     print(df)
+if __name__ == "__main__":
+    df = process_flight_data(data)
+    print(df)
