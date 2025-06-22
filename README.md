@@ -16,9 +16,9 @@ The task involves cleaning 'Airline Code' by removing punctuation, splitting 'To
 ## Features
 - Cleans airline codes, parses delay times, and fills missing flight codes.
 - Displays data in an interactive table.
-- Offers CSV download.
+- CSV download
 
 
 ## Notes
-- Data includes airline codes, delay times, flight codes, and routes.
-- Ensures consistent airline naming (e.g., "Air France 12").
+- Data includes airline codes, delay times, flight codes, and routes
+- Ensures consistent airline naming ("Air France 12" -> "Air France")
