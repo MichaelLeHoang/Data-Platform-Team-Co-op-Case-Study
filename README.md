@@ -1,7 +1,8 @@
 # Flight Data Processor
 
 ## Overview
-Data Platform Team Co-op Case Study
+Data Platform Team Co-op Case Study - Solution
+The task involves cleaning 'Airline Code' by removing punctuation, splitting 'To_From' into 'To' and 'From' with uppercase formatting, and filling missing 'FlightCodes' with a +10 increment, converting to integers using SQL. The solution includes process_flight_data.py for data processing and app.py for a Streamlit visualization. Hope you will like it :)
 
 ## Files
 - `process_flight_data.py`: Cleans and processes flight data into a DataFrame.
